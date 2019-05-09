@@ -1,14 +1,11 @@
 package com.nowcoder.controller;
 
-import com.nowcoder.model.EntityType;
-import com.nowcoder.model.HostHolder;
-import com.nowcoder.model.News;
-import com.nowcoder.model.ViewObject;
+import com.nowcoder.model.*;
 import com.nowcoder.service.LikeService;
 import com.nowcoder.service.NewsService;
 import com.nowcoder.service.UserService;
 import com.nowcoder.util.MailSender;
-import com.sun.deploy.net.HttpResponse;
+//import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -39,13 +36,25 @@ public class HomeController {
     MailSender mailSender;
 
     @RequestMapping(path = {"/a"},method = {RequestMethod.GET, RequestMethod.POST})
-    @ResponseBody
-    public String a (Model model){
+	@ResponseBody
+	public String a (Model model){
 //	   return "mjy";
-	    model.addAttribute("1","p");
-	    System.out.println("mjy");
-	    return "Setting:OK";
-    }
+		model.addAttribute("1","p");
+		System.out.println("mjy");
+		return "Setting:OK";
+	}
+
+	@RequestMapping(path = {"/b"},method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public User b (Model model){
+		User user = new User();
+		user.setName("today");
+		user.setPassword("10086");
+		user.setSalt("123");
+		user.setHeadUrl("123@gmail.com");
+		return user;
+
+	}
 
     private List<ViewObject> getNews(int userId, int offset, int limit) {
         List<News> newsList = newsService.getLatestNews(userId, offset, limit);
